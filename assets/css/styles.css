@@ -88,57 +88,87 @@ article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
 }
 
 /*--------------------------------------------------------------
-# header
+# Input form
 --------------------------------------------------------------*/
-#header {
-    background-color:rgb(22, 21, 21);
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    width: 20rem;
+.form-header {
+    color: white;
+    text-align: center;
+    line-height: 100px;
+    font-family: 'Pacifico', cursive;
+    font-weight: 700;
+    font-size: 3rem;
+}
+
+form {
+    background-color:#161515;
     padding: 1rem;
-    overflow-y: hidden;
-    transition: all cubic-bezier(0.45, 0.05, 0.55, 0.95) 0.5s;
+    border-radius: 5px;
+    width: 350px;
 }
 
-#header a {
-    background-color: rgb(39, 40, 47);
-    color: rgb(252, 242, 224);
-    line-height: 200%;
-    text-decoration: None;
-    padding: 8px;
-    transition: 0.3s;
-}
-#header .nav-menu a:hover {
-    text-decoration:underline;
-}
-
-#header .profile-menu img {
-    margin: 15px auto;
-    display: block;
-    width: 120px;
-    border: 8px solid rgb(130, 120, 103);
-}
-
-#header .profile-menu h1 {
-    font-family: "Poppins", sans-serif;
-    font-size: 1.7rem;
+form input {
+    background-color: rgb(27, 27, 26);
+    padding: 0;
+    margin-bottom: 0.75rem;
+    min-height: 2.5rem;
+    color: white;
+    font-family: Montserrat, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    text-align: center;
+    border: 0.125rem solid rgb(119, 114, 114);
+    border-radius: 5px;
     box-sizing: border-box;
 }
 
-#header .profile-menu .social-links {
-    margin: 1rem 0;
+form input:focus {
+    border: 0.15rem solid rgb(172, 169, 169);
+    outline: none;
+}
+
+form button {
+    background-color: rgb(82, 82, 76);
+    margin-bottom: 0.75rem;
+    padding: 0;
+    min-height: 2.5rem;
+    border: none;
+    color: white;
+    font-family: Montserrat, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    text-align: center;
+    box-sizing: border-box;
+    transition: all 0.5s;
+    cursor: pointer;
+}
+
+form button span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+form button span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+form button:hover span {
+  padding-right: 25px;
+}
+
+form button:hover span:after {
+  opacity: 1;
+  right: 0;
 }
 
 @media (max-width: 1199px) {
-    #header {
-        left: -20rem;
-        padding: 0;
-    }
-    #main {
-        padding-left: 0 !important;
-    }
+    
 }
 
 /*--------------------------------------------------------------
@@ -199,44 +229,18 @@ section h1 {
 }
 
 /*--------------------------------------------------------------
-# Menu bar
+# header
 --------------------------------------------------------------*/
-
-.nav-menu * {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-}
-
-.nav-menu > ul > li {
-    position: relative;
-
-}
-
-.nav-menu a {
-    padding: 12px 15px;
-    margin-top: 8px;
-    color: rgb(172, 169, 169);
-}
-
-.nav-menu .active a i {
-    color: rgb(0, 156, 228);
-}
-
-.nav-menu a {
-    transition: 0.3s;
-}
-
-.nav-menu a:hover {
-    color: rgb(0, 156, 228);
-}
-
-.nav-menu a i {
-    font-size: 1.5rem;
-}
-
-.nav-menu a span {
-    padding-left: 0.5rem;
+#header {
+    background-color:rgb(22, 21, 21);
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 25rem;
+    padding: 1rem;
+    overflow-y: hidden;
+    color: white;
 }
 
 .rounded_circle {
@@ -261,120 +265,18 @@ section h1 {
 }
 
 /*--------------------------------------------------------------
-# main
+# quiz
 --------------------------------------------------------------*/
-
-#main {
-    padding-left: 20rem;
+#quizImg {
 }
 
-/*--------------------------------------------------------------
-# Resume section
---------------------------------------------------------------*/
-.section-title {
-    padding-bottom: 1rem;
-}
-
-.section-title h2 {
-    font-size: 2rem;
-    font-weight: bold;
-    margin-bottom: 1rem;
-    padding-bottom: 1rem;
-    position: relative;
-}
-
-.section-title h2::after {
-    content: '';
-    position: absolute;
-    display: block;
-    width: 50px;
-    height: 3px;
-    background: #149ddd;
-    bottom: 0;
-    left: 0;
-}
-
-.container {
-    width: 100%;
-    padding-left: 1rem;
-    padding-right: 1rem;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.resume .resume-title {
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-    font-size: 26px;
-    font-weight: 700;
-}
-
-.resume .resume-item {
-    margin-top: 0px;
-    padding: 0 0 20px 20px;
-    border-left: 2px solid #1f5297;
-    position: relative;
-}
-
-.resume .resume-item::before {
-    content: "";
-    position: absolute;
-    width: 16px;
-    height: 16px;
-    border-radius: 50px;
-    left: -9px;
-    top: 0;
-    border: 2px solid #1f5297;
-    background: white;
-} 
-
-.resume .resume-item h4 {
-    text-transform: uppercase;
-    font-family: "Poppins", sans-serif;
-    font-size: 18px;
-    font-weight: 600;
-}
-
-.resume .resume-item h5 {
-    font-size: 16px;
-    font-weight: 600;
-    background: #e4edf9;
-    padding: 5px 15px;
+.prog{
+    background: lightblue;
+    width : 25px;
+    height : 25px;
+    border: 2px solid #ececec;
     display: inline-block;
-}
-
-.card {
-    width: 200px;
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-    transition: 0.3s;
-}
-
-.card-container {
-    padding: 8px;
-
-}
-  
-.card:hover {
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
-}
-
-.animatedFadeInUp {
-    animation-duration: 1s;
-    animation-fill-mode: both;
-}
-
-.fadeInUp {
-    opacity: 0;
-    animation-name: fadeInUp;
-}
-
-@keyframes fadeInUp {
-    from {
-        transform: translate3d(0,500px,0)
-    }
-
-    to {
-        transform: translate3d(0,0,0);
-        opacity: 1
-    }
+    border-radius: 50%;
+    margin-left : 5px;
+    margin-right : 5px;
 }
