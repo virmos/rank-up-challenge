@@ -1,4 +1,5 @@
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,7 +8,18 @@
 
     <title>Document</title>
 </head>
+<script src="/socket.io/socket.io.js"></script>
+
 <body>
+    <!-- -----------Test make connection------------->
+    <div id="login">
+        <div id="app"></div>
+        <input id="name" type="text" name="name" value="" placeholder="Enter your name!">
+        <input id="room_code" type="text" name="room_code" value="" placeholder="Enter the room code">
+        <button type="button" name="button" onclick="setUsername()">Join</button>
+    </div>
+    <!-- ------------------------------------------ -->
+
     <header id="header">
         <div class="d-flex flex-column" id="menu">
             <div id="start">Start Quiz!</div>
@@ -75,7 +87,7 @@
         const renderCounter = () => {
             if (count <= questionTime) {
                 counter.innerHTML = count
-                timeGauge.style.width = gaugeProgressUnit * count  + "px"
+                timeGauge.style.width = gaugeProgressUnit * count + "px"
                 count++
             } else {
                 count = 0
@@ -83,52 +95,86 @@
                 if (runningQuestionIndex < lastQuestionIndex) {
                     runningQuestionIndex++
                     renderQuestion()
-                }else {
+                } else {
                     clearInterval(TIMER)
-                    // renderScore()
+                        // renderScore()
                 }
             }
         }
-        
+
         const checkAnswer = (answer) => {
             if (questions[runningQuestionIndex].correctAnswer == answer) {
-                score ++
+                score++
                 document.getElementById(runningQuestionIndex).style.backgroundColor = "green"
             } else {
                 document.getElementById(runningQuestionIndex).style.backgroundColor = "red"
             }
 
             count = 0
-            if (runningQuestionIndex  < lastQuestionIndex) {
+            if (runningQuestionIndex < lastQuestionIndex) {
                 runningQuestionIndex++
                 renderQuestion()
-            }else {
+            } else {
                 clearInterval(TIMER)
             }
         }
+        let questions = [];
+        // let questions = [{
+        //         question: "How to tell if a programming language is turing complete?",
+        //         imgSrc: "https://d1ymz67w5raq8g.cloudfront.net/Pictures/480xany/6/5/5/509655_shutterstock_1506580442_769367.jpg",
+        //         A: "Ask the professor",
+        //         B: "Ask the professor",
+        //         C: "Ask the professor",
+        //         D: "Ask the professor",
+        //         correctAnswer: "A"
+        //     }, {
+        //         question: "Is CSS a programming language?",
+        //         imgSrc: "",
+        //         A: "Yes",
+        //         B: "Yes, it is",
+        //         C: "No, it isn't",
+        //         D: "No",
+        //         correctAnswer: "D"
+        //     },
+        // ]
 
-        let questions = [
-            {
-                question: "How to tell if a programming language is turing complete?",
-                imgSrc: "https://d1ymz67w5raq8g.cloudfront.net/Pictures/480xany/6/5/5/509655_shutterstock_1506580442_769367.jpg",
-                A: "Ask the professor",
-                B: "Ask the professor",
-                C: "Ask the professor",
-                D: "Ask the professor",
-                correctAnswer: "A"
-            },
-            {
-                question: "Is CSS a programming language?",
-                imgSrc: "",
-                A: "Yes",
-                B: "Yes, it is",
-                C: "No, it isn't",
-                D: "No",
-                correctAnswer: "D"
-            },
-            
-        ]
-        
+        //------------Make the connection----------------
+        var socket = io();
+        //set username
+        function setUsername() {
+            socket.emit('checkRoomCode', document.getElementById('room_code').value);
+            socket.emit('setUsername', document.getElementById('name').value);
+            // $("#login").hide();
+            // $("#menu").show();
+        };
+        socket.on('connectToRoom', function(data) {
+            alert(data);
+        });
+
+
+        socket.on('WrongRoomCode', function(data) {
+            alert(data);
+        });
+
+        //hiện thông báo tên user đã tồn tại để chọn tên khác
+        socket.on('userExists', function(data) {
+            alert(data);
+        });
+        //set username cho user ở fr để hiển thị
+        socket.on('userSet', function(data) {
+            user = data.username;
+            //TO-DO: smt
+        });
+        //----------------------------------------------
+
+        //------------Get list question-----------------
+        socket.on('ListQuestion', function(data) {
+            questions = data;
+        });
+
+
+
+        //------------------------------------------------
         const questionTime = 10
         let lastQuestionIndex = questions.length - 1
         let runningQuestionIndex = 0
@@ -140,8 +186,8 @@
         let score = 0
         let TIMER
 
-        start.addEventListener("click", startQuiz) 
-
+        start.addEventListener("click", startQuiz)
     </script>
 </body>
+
 </html>
