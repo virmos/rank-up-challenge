@@ -4,6 +4,6 @@ function setScreen(screen) {
     document.getElementById("app").innerHTML = screen.content
     screen.onload()
 }
-setScreen(mainScreen)
+setScreen(mainScreen);
 
 export default setScreen;

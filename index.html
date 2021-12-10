@@ -1,4 +1,5 @@
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,10 +9,44 @@
     <link rel="stylesheet" href="assets/css/styles.css">
 
 </head>
+
 <body>
     <div id="app"></div>
+    <div id="error-container"></div>
+    <input id="name" type="text" name="name" value="" placeholder="Enter your name!">
+    <input id="room_code" type="text" name="room_code" value="" placeholder="Enter the room code">
+    <button type="button" name="button" onclick="setUsername()">Join</button>
 </body>
 
 <script type="module" src="./index.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+    //------------lấy tên user-------------------
+    var socket = io();
+    //set username
+    function setUsername() {
+        socket.emit('checkRoomCode', document.getElementById('room_code').value);
+        socket.emit('setUsername', document.getElementById('name').value);
+    };
+    socket.on('connectToRoom', function(data) {
+        document.body.innerHTML = '';
+        document.write(data);
+    });
+
+
+    socket.on('WrongRoomCode', function(data) {
+        document.getElementById('error-container').innerHTML = data;
+    });
+
+    //hiện thông báo tên user đã tồn tại để chọn tên khác
+    socket.on('userExists', function(data) {
+        document.getElementById('error-container').innerHTML = data;
+    });
+    //set user name cho user ở fr để hiển thị
+    socket.on('userSet', function(data) {
+        user = data.username;
+        //TO-DO: smt
+    });
+</script>
 
 </html>
