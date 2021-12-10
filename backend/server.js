@@ -4,7 +4,7 @@ var io = require('socket.io')(http);
 
 app.get('/', function(req, res) {
     //res.sendFile(process.cwd() + "//index.html");
-    res.sendFile("C:\\Users\\pc\\OneDrive\\Tài liệu\\GitHub\\rank-up-challenge\\index.html");
+    res.sendFile("C:\\Users\\pc\\OneDrive\\Tài liệu\\GitHub\\rank-up-challenge\\index.html")
 });
 
 users = [];
