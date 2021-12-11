@@ -13,6 +13,31 @@
 </head>
 
 <body>
+    <header id="header" style="display: none">
+        <div class="d-flex flex-column" id="menu">
+            <div id="start"><span>Start Quiz!</span></div>
+            <div id="quiz" style="display: none">
+                <div id="question-container">
+                    <div id="quizImg"></div>
+                    <div id="question"></div>
+                </div>
+                <div id="choices">
+                    <div class="choice" id="A" onclick="checkAnswer('A')"></div>
+                    <div class="choice" id="B" onclick="checkAnswer('B')"></div>
+                    <div class="choice" id="C" onclick="checkAnswer('C')"></div>
+                    <div class="choice" id="D" onclick="checkAnswer('D')"></div>
+                </div>
+                <div id="timer">
+                    <div id="counter"></div>
+                    <div id="timeGauge"></div>
+                </div>
+                <div id="progress" class=""></div>
+            </div>
+            <div id="scoreContainer" style="display: none">
+            </div>
+        </div>
+    </header>
+    <script src="js/quiz.js"></script>
 
     <section class="hero d-flex flex-column justify-content-center align-items-center" id="hero">
         <form class="d-flex flex-column justify-content-center">
@@ -38,6 +63,8 @@
                 room_code,
                 name
             });
+            var header = document.getElementById('header')
+            header.style.display = "block"
         };
         socket.on('connectToRoom', function(data) {
             alert(data);

@@ -67,7 +67,6 @@ const Engine = function(time_step, update, render) {
 };
   
 Engine.prototype = {
-
     constructor:Engine,
   
     start:function() {
@@ -75,9 +74,7 @@ Engine.prototype = {
         this.accumulated_time = this.time_step;
         this.time = window.performance.now();
         this.animation_frame_request = window.requestAnimationFrame(this.handleRun);
-  
     },
   
     stop:function() { window.cancelAnimationFrame(this.animation_frame_request); }
-  
 };
