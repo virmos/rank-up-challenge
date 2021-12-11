@@ -1,4 +1,5 @@
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,14 +11,40 @@
 
     <title>Login</title>
 </head>
+
 <body>
     <section class="hero d-flex flex-column justify-content-center align-items-center" id="hero">
         <form action="" class="d-flex flex-column justify-content-center">
             <div class="form-header">Kahoot!</div>
-            <input type="text" placeholder="Room ID">
-            <input type="text" placeholder="Password">
-            <button><span>Enter</span></button>
+            <input id="name" type="text" placeholder="Name">
+            <input id="room_code" type="text" placeholder="Room ID">
+            <button onclick="setUsername()"><span>Enter</span></button>
         </form>
     </section>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        var socket = io();
+        //set username
+        function setUsername() {
+            console.log(document.getElementById('room_code').value);
+            socket.emit('checkRoomCode', document.getElementById('room_code').value);
+            socket.emit('setUsername', document.getElementById('name').value);
+
+        };
+        socket.on('connectToRoom', function(data) {
+            alert(data);
+        });
+
+
+        socket.on('WrongRoomCode', function(data) {
+            alert(data);
+        });
+
+        //hiện thông báo tên user đã tồn tại để chọn tên khác
+        socket.on('userExists', function(data) {
+            alert(data);
+        });
+    </script>
 </body>
+
 </html>

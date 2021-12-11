@@ -5,27 +5,27 @@ import { dirname } from 'path';
 import path from 'path'
 import { fileURLToPath } from 'url';
 
-const app = express(); 
-const server = createServer(app); 
+const app = express();
+const server = createServer(app);
 const io = new Server(server);
 
-const __filename = fileURLToPath(import.meta.url);
+const __filename = fileURLToPath(
+    import.meta.url);
 const __dirname = dirname(__filename);
 app.use(express.static(path.join(__dirname, './public/')))
 
-//return the guest page
-app.get('/', function(req, res) {
+//return the guest login page
+app.get('/login', function(req, res) {
     res.sendFile(__dirname + "/login.html");
 });
 
 app.get('/game', function(req, res) {
-    res.sendFile(__dirname + "/index.html");
+    res.sendFile(__dirname + "/test.html");
 });
 
-//return the host page
+////return the host page
 // app.get('/host', function(req, res) {
 //     res.sendFile(__dirname + "/test.html");
-//     //res.sendFile("C:\\Users\\pc\\OneDrive\\Tài liệu\\GitHub\\rank-up-challenge\\index.html");
 // });
 
 let users = [];
@@ -72,6 +72,11 @@ io.on('connection', function(socket) {
                 users.push(data);
                 socket.emit('userSet', { username: data });
                 socket.join("room-" + room_id);
+
+                //----------Send list question---------------
+                socket.emit('ListQuestion', questions);
+                //-------------------------------------------
+
                 io.sockets.in("room-" + room_id).emit('connectToRoom', data + " has joined room no." + room_id);
             }
         } else {
@@ -80,9 +85,7 @@ io.on('connection', function(socket) {
 
     })
 
-    //----------Send list question---------------
-    socket.emit('ListQuestion', questions);
-    //-------------------------------------------
+
 
 
 });
