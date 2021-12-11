@@ -13,23 +13,27 @@
 </head>
 
 <body>
+
     <section class="hero d-flex flex-column justify-content-center align-items-center" id="hero">
-        <form action="" class="d-flex flex-column justify-content-center">
+        <form class="d-flex flex-column justify-content-center">
             <div class="form-header">Kahoot!</div>
-            <input id="name" type="text" placeholder="Name">
-            <input id="room_code" type="text" placeholder="Room ID">
-            <button onclick="setUsername()"><span>Enter</span></button>
+            <input id="name" type="text" name="name" placeholder="Name">
+            <input id="room_code" type="text" name="room_code" placeholder="Room ID">
+            <button type="button" onclick="sendUserNameAndRoomCode()"><span>Enter</span></button>
         </form>
     </section>
+
     <script src="/socket.io/socket.io.js"></script>
     <script>
         var socket = io();
-        //set username
-        function setUsername() {
-            console.log(document.getElementById('room_code').value);
-            socket.emit('checkRoomCode', document.getElementById('room_code').value);
-            socket.emit('setUsername', document.getElementById('name').value);
-
+        //get username and get roomcode
+        function sendUserNameAndRoomCode() {
+            var room_code = document.getElementById('room_code').value;
+            var name = document.getElementById('name').value;
+            socket.emit('setUsername', {
+                room_code,
+                name
+            });
         };
         socket.on('connectToRoom', function(data) {
             alert(data);

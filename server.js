@@ -54,30 +54,23 @@ let questions = [{
 ];
 
 io.on('connection', function(socket) {
-    let roomCodeIsCorrect = false;
-    socket.on('checkRoomCode', function(roomcode) {
 
-        if (roomcode == room_code) {
-            roomCodeIsCorrect = true;
-        } else {
-            roomCodeIsCorrect = false;
-
-        }
-    })
     socket.on('setUsername', function(data) {
-        if (roomCodeIsCorrect) {
-            if (users.indexOf(data) > -1) {
-                socket.emit('userExists', data + ' username is taken! Try some other username.');
+        if (data.room_code == room_code) {
+            if (users.indexOf(data.name) > -1) {
+
+                socket.emit('userExists', data.name + ' username is taken! Try some other username.');
             } else {
-                users.push(data);
-                socket.emit('userSet', { username: data });
+
+                users.push(data.name);
+                socket.emit('userSet', { username: data.name });
                 socket.join("room-" + room_id);
 
                 //----------Send list question---------------
                 socket.emit('ListQuestion', questions);
                 //-------------------------------------------
 
-                io.sockets.in("room-" + room_id).emit('connectToRoom', data + " has joined room no." + room_id);
+                io.sockets.in("room-" + room_id).emit('connectToRoom', data.name + " has joined room no." + room_id);
             }
         } else {
             socket.emit('WrongRoomCode', 'Room code is false ! Type again !');
