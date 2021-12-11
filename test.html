@@ -11,14 +11,6 @@
 </head>
 
 <body>
-    <!-- -----------Test make connection------------->
-    <!-- <div id="login">
-        <div id="app"></div>
-        <input id="name" type="text" name="name" value="" placeholder="Enter your name!">
-        <input id="room_code" type="text" name="room_code" value="" placeholder="Enter the room code">
-        <button type="button" name="button" onclick="setUsername()">Join</button>
-    </div> -->
-    <!-- ------------------------------------------ -->
 
     <header id="header">
         <div class="d-flex flex-column" id="menu">
@@ -44,7 +36,7 @@
             </div>
         </div>
     </header>
-
+    <script src="/socket.io/socket.io.js"></script>
     <script>
         const start = document.getElementById("start")
         const quiz = document.getElementById("quiz")
@@ -52,7 +44,7 @@
         const question = document.getElementById("question")
         const counter = document.getElementById("counter")
         const timeGauge = document.getElementById("timeGauge")
-        const choiceA = document.getElementById("A")    
+        const choiceA = document.getElementById("A")
         const choiceB = document.getElementById("B")
         const choiceC = document.getElementById("C")
         const choiceD = document.getElementById("D")
@@ -118,58 +110,17 @@
                 clearInterval(TIMER)
             }
         }
-        let questions = [{
-                question: "How to tell if a programming language is turing complete?",
-                imgSrc: "https://d1ymz67w5raq8g.cloudfront.net/Pictures/480xany/6/5/5/509655_shutterstock_1506580442_769367.jpg",
-                A: "Ask the professor",
-                B: "Ask the professor",
-                C: "Ask the professor",
-                D: "Ask the professor",
-                correctAnswer: "A"
-            }, {
-                question: "Is CSS a programming language?",
-                imgSrc: "https://images.unsplash.com/photo-1453728013993-6d66e9c9123a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8dmlld3xlbnwwfHwwfHw%3D&w=1000&q=80",
-                A: "Yes",
-                B: "Yes, it is",
-                C: "No, it isn't",
-                D: "No",
-                correctAnswer: "D"
-            },
-        ]
 
-        // //------------Make the connection----------------
-        // var socket = io();
-        // //set username
-        // function setUsername() {
-        //     socket.emit('checkRoomCode', document.getElementById('room_code').value);
-        //     socket.emit('setUsername', document.getElementById('name').value);
-        //     // $("#login").hide();
-        //     // $("#menu").show();
-        // };
-        // socket.on('connectToRoom', function(data) {
-        //     alert(data);
-        // });
+        let questions = [];
+        //------------Make the connection----------------
+        var socket = io();
 
 
-        // socket.on('WrongRoomCode', function(data) {
-        //     alert(data);
-        // });
 
-        // //hiện thông báo tên user đã tồn tại để chọn tên khác
-        // socket.on('userExists', function(data) {
-        //     alert(data);
-        // });
-        // //set username cho user ở fr để hiển thị
-        // socket.on('userSet', function(data) {
-        //     user = data.username;
-        //     //TO-DO: smt
-        // });
-        // //----------------------------------------------
-
-        // //------------Get list question-----------------
-        // socket.on('ListQuestion', function(data) {
-        //     questions = data;
-        // });
+        //------------Get list question-----------------
+        socket.on('ListQuestion', function(data) {
+            questions = data;
+        });
 
         //------------------------------------------------
         const questionTime = 10

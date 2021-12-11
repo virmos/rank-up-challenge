@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
 
-    <title>Login</title>
+    <title>Guest</title>
 </head>
 
 <body>
@@ -48,6 +48,12 @@
         socket.on('userExists', function(data) {
             alert(data);
         });
+
+        socket.on('joined', function(data) {
+            if (data == true) {
+                location.replace("http://localhost:3000/game");
+            }
+        })
     </script>
 </body>
 
