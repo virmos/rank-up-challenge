@@ -266,6 +266,24 @@ section h1 {
     border: 3px solid rgb(37, 161, 151);
 }
 
+#header #menu #scoreContainer {
+    width: 100px;
+    height: 120px;
+
+    margin: auto;
+    border: 1px solid rgb(168, 157, 157);
+    border-radius: 2px;
+
+    font-size: 1.5rem;
+    font-weight: bolder;
+    text-align: center;
+}
+
+#header #menu #scoreContainer:hover {
+    color: rgb(37, 161, 151);
+    border: 3px solid rgb(37, 161, 151);
+}
+
 /*--------------------------------------------------------------
 # Quiz question
 --------------------------------------------------------------*/
@@ -347,4 +365,14 @@ section h1 {
     display: inline-block;
     border-radius: 50%;
     margin: 5px;
+}
+
+/*--------------------------------------------------------------
+# Game
+--------------------------------------------------------------*/
+canvas {
+    position: absolute;
+    left: 400px;
+    width: 100vw;
+    height: 100vh;
 }
