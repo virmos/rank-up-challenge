@@ -1,8 +1,8 @@
 import { Server } from 'socket.io';
 import express from 'express';
 import { createServer } from 'http';
-import path from 'path'
 import { dirname } from 'path';
+import path from 'path'
 import { fileURLToPath } from 'url';
 
 const app = express(); 
@@ -11,13 +11,15 @@ const io = new Server(server);
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-// const viewsDir = path.join(__dirname, 'views')  
-
+app.use(express.static(path.join(__dirname, './public/')))
 
 //return the guest page
 app.get('/', function(req, res) {
-    res.sendFile(__dirname + "/test.html");
-    //res.sendFile("C:\\Users\\pc\\OneDrive\\Tài liệu\\GitHub\\rank-up-challenge\\index.html");
+    res.sendFile(__dirname + "/login.html");
+});
+
+app.get('/game', function(req, res) {
+    res.sendFile(__dirname + "/index.html");
 });
 
 //return the host page
