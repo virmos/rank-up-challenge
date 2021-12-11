@@ -166,7 +166,9 @@ form button:hover span:after {
   right: 0;
 }
 
-@media (max-width: 1199px) {
+form #moveToRegister, #moveToLogin {
+    text-align: right;
+    color: gray;
     
 }
 
