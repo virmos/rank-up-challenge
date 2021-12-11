@@ -20,10 +20,6 @@ app.get('/guest', function(req, res) {
     res.sendFile(__dirname + "/guest.html");
 });
 
-app.get('/game', function(req, res) {
-    res.sendFile(__dirname + "/index.html");
-});
-
 //return the host page
 app.get('/host', function(req, res) {
     res.sendFile(__dirname + "/host.html");
@@ -89,8 +85,8 @@ io.on('connection', function(socket) {
                 var image = new Image();
                 var canvas = document.getElementById('character');
                 var context = canvas.getContext('2d');
-                //image.src = './public/assets/Main Characters/' + name_character + '/Run (32x32).png';
-                image.src = "http://127.0.0.1:8887/assets/Main%20Characters/Mask%20Dude/Run%20(32x32).png";
+                image.src = 'assets/Main Characters/' + name_character + '/Run (32x32).png';
+                // image.src = "http://127.0.0.1:8887/assets/Main%20Characters/Mask%20Dude/Run%20(32x32).png";
                 image.crossOrigin = true;
                 c.loadImage(image);
                 //----tao nhan vat-------------
@@ -117,8 +113,6 @@ io.on('connection', function(socket) {
             socket.emit('WrongRoomCode', 'Room code is false ! Type again !');
         }
     });
-
-
 
     //----------Send list question---------------
     socket.emit('ListQuestion', questions);

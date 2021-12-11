@@ -58,11 +58,11 @@
                 room_code,
                 name
             });
-            var header = document.getElementById('header')
-            header.style.display = "block"
         };
         socket.on('connectToRoom', function(data) {
             alert(data);
+            var header = document.getElementById('header')
+            header.style.display = "block"
         });
 
 
@@ -76,9 +76,10 @@
         });
 
         socket.on('joined', function(data) {
-            if (data == true) {
-                location.replace("http://localhost:3000/game");
-            }
+            var header = document.getElementById('header')
+            var section = document.getElementById('hero')
+            header.style.display = "block"
+            section.style.display = "none"
         })
     </script>
 </body>

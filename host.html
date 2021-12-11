@@ -48,7 +48,7 @@
             <span id="movetoJoin" onclick="movetoJoin()"><i>Already have room? Move to join a game</i></span>
         </form>
     </section>
-    
+
     <script src="js/quiz.js"></script>
     <script src="/socket.io/socket.io.js"></script>
     <script>
@@ -66,8 +66,6 @@
                 name,
                 character
             });
-            var header = document.getElementById('header')
-            header.style.display = "block"
         };
         socket.on('connectToRoom', function(data) {
             alert(data);
@@ -83,9 +81,11 @@
             alert(data);
         });
         socket.on('joined', function(data) {
-            if (data == true) {
-                location.replace("http://localhost:3000/game");
-            }
+            console.log(data)
+            var header = document.getElementById('header')
+            var section = document.getElementById('hero')
+            header.style.display = "block"
+            section.style.display = "none"
         });
     </script>
 </body>
