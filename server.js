@@ -20,7 +20,7 @@ app.get('/guest', function(req, res) {
 });
 
 app.get('/game', function(req, res) {
-    res.sendFile(__dirname + "/test.html");
+    res.sendFile(__dirname + "/index.html");
 });
 
 //return the host page
