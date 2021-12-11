@@ -20,11 +20,15 @@
             <input id="name" type="text" name="name" placeholder="Name">
             <input id="room_code" type="text" name="room_code" placeholder="Room ID">
             <button type="button" onclick="sendUserNameAndRoomCode()"><span>Create</span></button>
+            <span id="movetoJoin" onclick="movetoJoin()"><i>Already have room? Move to join a game</i></span>
         </form>
     </section>
 
     <script src="/socket.io/socket.io.js"></script>
     <script>
+        function movetoJoin() {
+            location.replace("http://localhost:3000/guest");
+        }
         var socket = io();
         //get username and get roomcode
         function sendUserNameAndRoomCode() {
@@ -38,25 +42,21 @@
         socket.on('connectToRoom', function(data) {
             alert(data);
         });
-
         socket.on('created', function(data) {
             alert(data);
         });
-
         socket.on('WrongRoomCode', function(data) {
             alert(data);
         });
-
         //hiện thông báo tên user đã tồn tại để chọn tên khác
         socket.on('userExists', function(data) {
             alert(data);
         });
-
         socket.on('joined', function(data) {
             if (data == true) {
                 location.replace("http://localhost:3000/game");
             }
-        })
+        });
     </script>
 </body>
 
