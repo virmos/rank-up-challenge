@@ -1,6 +1,18 @@
-var app = require('express')();
-var http = require('http').Server(app);
-var io = require('socket.io')(http);
+import { Server } from 'socket.io';
+import express from 'express';
+import { createServer } from 'http';
+import path from 'path'
+import { dirname } from 'path';
+import { fileURLToPath } from 'url';
+
+const app = express(); 
+const server = createServer(app); 
+const io = new Server(server);
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+// const viewsDir = path.join(__dirname, 'views')  
+
 
 //return the guest page
 app.get('/', function(req, res) {
@@ -14,9 +26,9 @@ app.get('/', function(req, res) {
 //     //res.sendFile("C:\\Users\\pc\\OneDrive\\Tài liệu\\GitHub\\rank-up-challenge\\index.html");
 // });
 
-users = [];
-var room_id = 1;
-var room_code = '123';
+let users = [];
+let room_id = 1;
+let room_code = '123';
 
 let questions = [{
         question: "How to tell if a programming language is turing complete?",
@@ -40,7 +52,7 @@ let questions = [{
 ];
 
 io.on('connection', function(socket) {
-    var roomCodeIsCorrect = false;
+    let roomCodeIsCorrect = false;
     socket.on('checkRoomCode', function(roomcode) {
 
         if (roomcode == room_code) {
@@ -72,6 +84,6 @@ io.on('connection', function(socket) {
 
 
 });
-http.listen(3000, function() {
+server.listen(3000, function() {
     console.log('listening on localhost:3000');
 });
