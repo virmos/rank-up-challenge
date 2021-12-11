@@ -44,6 +44,7 @@
             <div class="form-header">Kahoot!</div>
             <input id="name" type="text" name="name" placeholder="Name">
             <input id="room_code" type="text" name="room_code" placeholder="Room ID">
+            <input id="character1" type="text" name="name" placeholder="Character">
             <button type="button" onclick="sendUserNameAndRoomCode()"><span>Create</span></button>
             <span id="movetoJoin" onclick="movetoJoin()"><i>Already have room? Move to join a game</i></span>
         </form>
@@ -59,9 +60,11 @@
         function sendUserNameAndRoomCode() {
             var room_code = document.getElementById('room_code').value;
             var name = document.getElementById('name').value;
+            var character = document.getElementById('character1').value;
             socket.emit('create', {
                 room_code,
-                name
+                name,
+                character
             });
             var header = document.getElementById('header')
             header.style.display = "block"
