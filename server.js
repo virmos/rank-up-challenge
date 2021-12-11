@@ -20,13 +20,14 @@ app.get('/guest', function(req, res) {
 });
 
 app.get('/game', function(req, res) {
-    res.sendFile(__dirname + "/index.html");
+    res.sendFile(__dirname + "/test.html");
 });
 
 //return the host page
 app.get('/host', function(req, res) {
     res.sendFile(__dirname + "/host.html");
 });
+
 
 let users = [];
 let room_id = 1;
@@ -60,7 +61,6 @@ io.on('connection', function(socket) {
         socket.emit('created', "Created room");
         socket.emit('joined', true);
     });
-
     socket.on('setUsername', function(data) {
         if (data.room_code == room_code) {
             if (users.indexOf(data.name) > -1) {
@@ -71,7 +71,9 @@ io.on('connection', function(socket) {
                 socket.join("room-" + room_id);
                 socket.emit('joined', true);
                 io.sockets.in("room-" + room_id).emit('connectToRoom', data.name + " has joined room");
+                socket.emit('userExists', data.name + ' username is taken! Try some other username.');
             }
+
         } else {
             socket.emit('WrongRoomCode', 'Room code is false ! Type again !');
         }
@@ -80,9 +82,6 @@ io.on('connection', function(socket) {
     //----------Send list question---------------
     socket.emit('ListQuestion', questions);
     //-------------------------------------------
-
-
-
 });
 server.listen(3000, function() {
     console.log('listening on localhost:3000');

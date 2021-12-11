@@ -1,0 +1,50 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="public/css/styles.css">
+
+    <title>Register</title>
+</head>
+<body>
+    <section class="hero d-flex flex-column justify-content-center align-items-center" id="hero">
+        <form action="/game" class="d-flex flex-column justify-content-center">
+            <div class="form-header">Kahoot!</div>
+            <input type="text" placeholder="Room ID">
+            <input type="text" placeholder="Password">
+            <button><span>Create Room</span></button>
+            <span id="moveToLogin"><i>Already have room? Move to login</i></span>
+        </form>
+    </section>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        var socket = io();
+        //get username and get roomcode
+        function sendUserNameAndRoomCode() {
+            var room_code = document.getElementById('room_code').value;
+            var name = document.getElementById('name').value;
+            socket.emit('setUsername', {
+                room_code,
+                name
+            });
+        };
+        socket.on('connectToRoom', function(data) {
+            alert(data);
+        });
+
+
+        socket.on('WrongRoomCode', function(data) {
+            alert(data);
+        });
+
+        //hiện thông báo tên user đã tồn tại để chọn tên khác
+        socket.on('userExists', function(data) {
+            alert(data);
+        });
+    </script>
+</body>
+</html>
