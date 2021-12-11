@@ -61,30 +61,29 @@ article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
     margin-left: -15px;
 }
 
-.col-lg-6 {
-    position: relative;
-    width: 100%;
-    padding-right: 15px;
-    padding-left: 15px;
-
-    flex: 0 0 50%;
-    flex-grow: 0;
-    flex-shrink: 0;
-    flex-basis: 50%;
-    max-width: 50%;
+.flex-grow-1 {
+    flex-grow: 1;
 }
 
-.col-lg-3 {
-    position: relative;
-    width: 100%;
-    padding-right: 15px;
-    padding-left: 15px;
+.rounded_circle {
+    border-radius: 50%;
+}
 
-    flex: 0 0 25%;
-    flex-grow: 0;
-    flex-shrink: 0;
-    flex-basis: 25%;
-    max-width: 25%;
+.img_fluid {
+    max-width: 100%;
+    height: auto;
+}
+
+.text-light {
+    color: #ececec;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.break-word {
+    overflow-wrap: break-word;
 }
 
 /*--------------------------------------------------------------
@@ -229,7 +228,7 @@ section h1 {
 }
 
 /*--------------------------------------------------------------
-# header
+# Quiz start
 --------------------------------------------------------------*/
 #header {
     background-color:rgb(22, 21, 21);
@@ -243,33 +242,103 @@ section h1 {
     color: white;
 }
 
-.rounded_circle {
-    border-radius: 50%;
+#header #menu {
+    height: 100%;
 }
 
-.img_fluid {
-    max-width: 100%;
-    height: auto;
-}
+#header #menu #start {
+    width: 100px;
+    height: 120px;
 
-.text-light {
-    color: #ececec;
-}
+    margin: auto;
+    border: 1px solid rgb(168, 157, 157);
+    border-radius: 2px;
 
-.text-center {
+    font-size: 1.5rem;
+    font-weight: bolder;
     text-align: center;
+
+    cursor: pointer;
 }
 
-.break-word {
-    overflow-wrap: break-word;
+#header #menu #start:hover {
+    color: rgb(37, 161, 151);
+    border: 3px solid rgb(37, 161, 151);
 }
 
 /*--------------------------------------------------------------
-# quiz
+# Quiz question
 --------------------------------------------------------------*/
-#quizImg {
+#header #quiz{
+    font-family: monospace;
 }
 
+#header #quiz #quizImg {
+    text-align: center;
+}
+
+#header #question p {
+    font-size: 1rem;
+    text-align: center;
+}
+
+#header #question-container {
+    height: 370px;
+}
+
+#header #timer {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    margin-left: 20px;
+    margin-bottom: 20px;
+    width: 180px;
+}
+
+#header #counter {
+    font-size: 3rem;
+}
+
+#header #timeGauge {
+    height: 10px;
+    border-radius: 10px;
+    background-color: mediumseagreen;
+}
+
+#header #progress {
+    position: absolute;
+    bottom: 0;
+    right: 0;    
+    width: 180px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    text-align: right;
+}
+
+/*--------------------------------------------------------------
+# Quiz choices
+--------------------------------------------------------------*/
+
+#header .choice {
+    color: rgb(252, 242, 224);
+    line-height: 200%;
+    text-decoration: None;
+    font-size: 1rem;
+    margin: 8px;
+
+    border: 1px solid grey;
+    border-radius: 5px;
+    transition: 0.3s;
+}
+
+#header .choice i {
+    margin-right: 1rem;
+    margin-left: 1rem;
+}
+
+/*--------------------------------------------------------------
+# Quiz progress
+--------------------------------------------------------------*/
 .prog{
     background: lightblue;
     width : 25px;
@@ -277,6 +346,5 @@ section h1 {
     border: 2px solid #ececec;
     display: inline-block;
     border-radius: 50%;
-    margin-left : 5px;
-    margin-right : 5px;
+    margin: 5px;
 }

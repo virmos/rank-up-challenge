@@ -43,7 +43,7 @@ let questions = [{
     },
     {
         question: "Is CSS a programming language?",
-        imgSrc: "",
+        imgSrc: "https://cdn.britannica.com/77/170477-050-1C747EE3/Laptop-computer.jpg",
         A: "Yes",
         B: "Yes, it is",
         C: "No, it isn't",

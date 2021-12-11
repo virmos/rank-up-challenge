@@ -6,30 +6,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Game</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.6.1/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="public/css/styles.css">
 
 </head>
 
 <body>
     <header id="header">
         <div class="d-flex flex-column" id="menu">
-            <div id="start">Start Quiz!</div>
+            <div id="start"><span>Start Quiz!</span></div>
             <div id="quiz" style="display: none">
-                <div id="question"></div>
-                <div id="quizImg"></div>
+                <div id="question-container">
+                    <div id="quizImg"></div>
+                    <div id="question"></div>
+                </div>
                 <div id="choices">
-                    <div class="choice" id="A""></div>
-                    <div class="choice" id="B""></div>
-                    <div class="choice" id="C""></div>
-                    <div class="choice" id="D""></div>
+                    <div class="choice" id="A" onclick="checkAnswer('A')"></div>
+                    <div class="choice" id="B" onclick="checkAnswer('B')"></div>
+                    <div class="choice" id="C" onclick="checkAnswer('C')"></div>
+                    <div class="choice" id="D" onclick="checkAnswer('D')"></div>
                 </div>
                 <div id="timer">
                     <div id="counter"></div>
-                    <div id="btimeGauge"></div>
                     <div id="timeGauge"></div>
                 </div>
-                <div id="progress">
-                </div>
+                <div id="progress" class=""></div>
             </div>
             <div id="scoreContainer" style="display: none">
             </div>
@@ -54,10 +54,10 @@
         let q = questions[runningQuestionIndex]
         quizImg.innerHTML = `<img width="200px" height="200px" src="${q.imgSrc}">`
         question.innerHTML = `<p>"${q.question}"</p>`
-        choiceA.innerHTML = q.A
-        choiceB.innerHTML = q.B
-        choiceC.innerHTML = q.C
-        choiceD.innerHTML = q.D
+        choiceA.innerHTML = `<i class="bi bi-suit-club-fill"> </i> <span> ${q.A} </span>`
+        choiceB.innerHTML = `<i class="bi bi-suit-diamond-fill"> </i> <span> ${q.B} </span>`
+        choiceC.innerHTML = `<i class="bi bi-suit-heart-fill"> </i> <span> ${q.C} </span>`
+        choiceD.innerHTML = `<i class="bi bi-suit-spade-fill"> </i> <span> ${q.D} </span>`
     }
 
     const startQuiz = () => {
@@ -71,10 +71,9 @@
 
     const renderProgress = () => {
         for (let qIndex = 0; qIndex <= lastQuestionIndex; qIndex++) {
-            progress.innerHTML += `<div class="prog" id="${qIndex}"</div>`
+            progress.innerHTML += `<div class="prog" id="${qIndex}"></div>`
         }
     }
-
 
     const renderCounter = () => {
         if (count <= questionTime) {
@@ -94,8 +93,7 @@
         }
     }
 
-    const checkAnswer = (evt) => {
-        let answer = evt.myParam
+    const checkAnswer = (answer) => {
         if (questions[runningQuestionIndex].correctAnswer == answer) {
             score ++
             document.getElementById(runningQuestionIndex).style.backgroundColor = "green"
@@ -124,7 +122,7 @@
         },
         {
             question: "Is CSS a programming language?",
-            imgSrc: "",
+            imgSrc: "https://images.unsplash.com/photo-1453728013993-6d66e9c9123a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8dmlld3xlbnwwfHwwfHw%3D&w=1000&q=80",
             A: "Yes",
             B: "Yes, it is",
             C: "No, it isn't",
@@ -143,17 +141,7 @@
     let count = 0
     let score = 0
     let TIMER
-    
-    choiceA.addEventListener("click", checkAnswer) 
-    choiceB.addEventListener("click", checkAnswer) 
-    choiceC.addEventListener("click", checkAnswer) 
-    choiceD.addEventListener("click", checkAnswer) 
-
-    choiceA.myParam = "A"
-    choiceB.myParam = "B"
-    choiceC.myParam = "C"
-    choiceD.myParam = "D"
-
+  
     start.addEventListener("click", startQuiz) 
 </script>
 
