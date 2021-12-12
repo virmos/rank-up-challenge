@@ -7,6 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.6.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="css/styles.css">
 
     <title>Guest</title>
@@ -37,6 +38,8 @@
             </div>
         </div>
     </header>
+    <canvas id="canvas" style="display: none;"></canvas>
+
     <section class="hero d-flex flex-column justify-content-center align-items-center" id="hero">
         <form class="d-flex flex-column justify-content-center">
             <div class="form-header">Kahoot!</div>
@@ -45,9 +48,13 @@
             <button type="button" onclick="sendUserNameAndRoomCode()"><span>Enter</span></button>
         </form>
     </section>
+    <script src="/socket.io/socket.io.js"></script>
 
     <script src="js/quiz.js"></script>
-    <script src="/socket.io/socket.io.js"></script>
+    <script src="js/controller.js"></script>
+    <script src="js/display.js"></script>
+    <script src="js/engine.js"></script>
+    <script src="js/game.js"></script>
     <script>
         var socket = io();
         //get username and get roomcode
@@ -78,8 +85,57 @@
         socket.on('joined', function(data) {
             var header = document.getElementById('header')
             var section = document.getElementById('hero')
+            var canvas = document.getElementById('canvas')
             header.style.display = "block"
             section.style.display = "none"
+            canvas.style.display = "block"
+
+            "use strict";
+
+            var keyDownUp = function(event) {
+                controller.keyDownUp(event.type, event.keyCode);
+            };
+
+            var resize = function(event) {
+                display.resize(document.documentElement.clientWidth - 32, document.documentElement.clientHeight - 32, game.world.height / game.world.width);
+                display.render();
+            };
+
+            var render = function() {
+                display.drawMap(game.world.map, game.world.columns);
+                display.drawPlayer(game.world.player, game.world.player.color1, game.world.player.color2);
+                display.render();
+
+            };
+
+            var update = function() {
+                if (controller.left.active)  { game.world.player.moveLeft();  }
+                if (controller.right.active) { game.world.player.moveRight(); }
+                if (controller.up.active)    { game.world.player.moveUp(); }
+                if (controller.down.active)  { game.world.player.moveDown(); }
+
+                game.update();
+            };
+
+            var controller = new Controller();
+            var display    = new Display(document.querySelector("canvas"));
+            var game       = new Game();
+            var engine     = new Engine(1000/30, render, update);
+
+            display.buffer.canvas.height = game.world.height;
+            display.buffer.canvas.width = game.world.width;
+
+            display.tile_sheet.image.src = "assets/Terrain/terrain.png";
+            display.computer.image.src = "assets/Traps/Fire/Off.png"
+
+            display.tile_sheet.image.addEventListener("load", function(event) {
+                resize();
+                engine.start();
+            }, { once:true });
+
+            window.addEventListener("keydown", keyDownUp);
+            window.addEventListener("keyup",   keyDownUp);
+            window.addEventListener("resize",  resize);
         })
     </script>
 </body>

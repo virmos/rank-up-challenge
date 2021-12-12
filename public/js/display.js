@@ -4,6 +4,7 @@ const Display = function(canvas) {
   this.context = canvas.getContext("2d");
 
   this.tile_sheet = new Display.TileSheet(16, 21);
+  this.computer = new Display.TileSheet(16, 1);
 
   this.drawMap = function(map, columns) { 
 
@@ -15,6 +16,9 @@ const Display = function(canvas) {
       let destination_y = Math.floor(index / columns) * this.tile_sheet.tile_size;
 
       this.buffer.drawImage(this.tile_sheet.image, source_x, source_y, this.tile_sheet.tile_size, this.tile_sheet.tile_size, destination_x, destination_y, this.tile_sheet.tile_size, this.tile_sheet.tile_size);
+      if (value === 11) {
+        this.buffer.drawImage(this.computer.image, 0, this.computer.tile_size, this.computer.tile_size, this.computer.tile_size, destination_x, destination_y, this.computer.tile_size, this.computer.tile_size);
+      }
     }
   };
 

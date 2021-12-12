@@ -12,6 +12,8 @@ const progress = document.getElementById("progress")
 const scoreContainer = document.getElementById("scoreContainer")
 
 const renderQuestion = () => {
+    count = 0
+    renderCounter()
     let q = questions[runningQuestionIndex]
     quizImg.innerHTML = `<img width="200px" height="200px" src="${q.imgSrc}">`
     question.innerHTML = `<p>"${q.question}"</p>`
@@ -41,6 +43,8 @@ const renderCounter = () => {
         counter.innerHTML = count
         timeGauge.style.width = gaugeProgressUnit * count  + "px"
         count++
+    } else {
+        checkAnswer("E")
     } 
 }
 
@@ -62,7 +66,6 @@ const checkAnswer = (answer) => {
         document.getElementById(runningQuestionIndex).style.backgroundColor = "red"
     }
 
-    count = 0
     if (runningQuestionIndex  < lastQuestionIndex) {
         runningQuestionIndex++
         renderQuestion()
@@ -76,20 +79,38 @@ let questions = [
     {
         question: "How to tell if a programming language is turing complete?",
         imgSrc: "https://d1ymz67w5raq8g.cloudfront.net/Pictures/480xany/6/5/5/509655_shutterstock_1506580442_769367.jpg",
-        A: "Ask the professor",
+        A: "Able to simulate any Turing machine",
         B: "Ask the professor",
         C: "Ask the professor",
         D: "Ask the professor",
         correctAnswer: "A"
     },
     {
-        question: "Is CSS a programming language?",
+        question: "Who invents The Coffee Test AI ?",
         imgSrc: "https://images.unsplash.com/photo-1453728013993-6d66e9c9123a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8dmlld3xlbnwwfHwwfHw%3D&w=1000&q=80",
-        A: "Yes",
-        B: "Yes, it is",
-        C: "No, it isn't",
-        D: "No",
-        correctAnswer: "D"
+        A: "Steve Wozniak",
+        B: "Tim Sweeney",
+        C: "Sean Keller",
+        D: "Jim Keller",
+        correctAnswer: "A"
+    },
+    {
+        question: "What is right about gamma correction in image processing ?",
+        imgSrc: "https://images.unsplash.com/photo-1453728013993-6d66e9c9123a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8dmlld3xlbnwwfHwwfHw%3D&w=1000&q=80",
+        A: "Gamma is from the CRT display",
+        B: "Libraries handle it correctly",
+        C: "(128, 128, 128) emits ~20% light of (255, 255, 255)",
+        D: "It’s safe to ignore it",
+        correctAnswer: "C"
+    },
+    {
+        question: "How do eyes perceive light intensity ?",
+        imgSrc: "https://images.unsplash.com/photo-1453728013993-6d66e9c9123a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8dmlld3xlbnwwfHwwfHw%3D&w=1000&q=80",
+        A: "Nonlinearly, that's why we use gamma correction",
+        B: "Linearly",
+        C: "Rod recognize black-white",
+        D: "Cone recognize colors",
+        correctAnswer: "A"
     },
 ]
 
