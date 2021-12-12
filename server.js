@@ -12,7 +12,7 @@ const io = new Server(server);
 const __filename = fileURLToPath(
     import.meta.url);
 const __dirname = dirname(__filename);
-app.use(express.static(path.join(__dirname, './public/')))
+app.use(express.static(path.join(__dirname, '/public/')))
 
 //return the guest login page
 app.get('/guest', function(req, res) {
@@ -20,7 +20,7 @@ app.get('/guest', function(req, res) {
 });
 
 //return the host page
-app.get('/host', function(req, res) {
+app.get('/', function(req, res) {
     res.sendFile(__dirname + "/host.html");
 });
 
@@ -81,6 +81,6 @@ io.on('connection', function(socket) {
     socket.emit('ListQuestion', questions);
     //-------------------------------------------
 });
-server.listen(3000, function() {
-    console.log('listening on localhost:3000');
+server.listen(process.env.PORT || 5000, function() {
+    console.log('listening on localhost:5000');
 });
